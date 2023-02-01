@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: algorithm-enc-dec
+  namespace: middleware-clubwifi
+  labels:
+    app: algorithm-enc-dec
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: algorithm-enc-dec
+  template:
+    metadata:
+      labels:
+        app: algorithm-enc-dec
+    spec:
+      containers:
+        - name: algorithm-enc-dec
+          image: swr.na-mexico-1.myhuaweicloud.com/cce-middleware-ms-soa/algorithm-enc-dec-service:latest
+          envFrom:
+            - configMapRef:
+                name: clubwifi-config
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8165
+      imagePullSecrets:
+        - name: default-secret
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: algorithm-enc-dec
+  namespace: middleware-clubwifi
+  labels:
+    app: algorithm-enc-dec
+  annotations:
+    kubernetes.io/elb.class: union
+    kubernetes.io/elb.id: 3ae3d247-dc04-42c0-a468-a16aeb63e078
+    kubernetes.io/elb.lb-algorithm: ROUND_ROBIN
+    kubernetes.io/elb.health-check-flag: 'off'
+spec:
+  ports:
+    - port: 8165
+      targetPort: 8165
+      protocol: TCP
+  selector:
+    app: algorithm-enc-dec
+  type: LoadBalancer
+  loadBalancerIP: 10.218.46.248
+  externalTrafficPolicy: Cluster
