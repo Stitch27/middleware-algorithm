@@ -111,7 +111,7 @@ public class AlgorithmService {
             values = new ArrayList<>();
 
             result.setCode("-51");
-            result.setDescription("Llaves incorrectas.");
+            result.setDescription("Excepción validar solicitud..");
 
             response.setResult(result);
             response.setValues(values);
@@ -213,7 +213,7 @@ public class AlgorithmService {
             values = new ArrayList<>();
 
             result.setCode("-51");
-            result.setDescription("Llaves incorrectas.");
+            result.setDescription("Excepción validar solicitud.");
 
             response.setResult(result);
             response.setValues(values);
