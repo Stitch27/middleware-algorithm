@@ -111,7 +111,7 @@ public class AlgorithmService {
             values = new ArrayList<>();
 
             result.setCode("-51");
-            result.setDescription("Excepción validar solicitud..");
+            result.setDescription("Excepción validar solicitud.");
 
             response.setResult(result);
             response.setValues(values);

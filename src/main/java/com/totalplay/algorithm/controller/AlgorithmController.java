@@ -3,6 +3,7 @@ package com.totalplay.algorithm.controller;
 import com.totalplay.algorithm.model.Request;
 import com.totalplay.algorithm.model.Response;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import io.swagger.v3.oas.annotations.links.Link;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class AlgorithmController {
                     }, useReturnTypeSchema = true)
             }
     )
-    public ResponseEntity<Response> encryption(@RequestHeader(value = "Middleware-Header", required = false) String header, @RequestBody(required = false) Request request){
+    public ResponseEntity<Response> encryption(@Parameter(description = "Valores a encriptar.") @RequestHeader(value = "Middleware-Header", required = false) String header, @RequestBody(required = false) Request request){
 
         return algorithmService.encryption(header, request);
 
@@ -60,7 +61,7 @@ public class AlgorithmController {
                     }, useReturnTypeSchema = true)
             }
     )
-    public ResponseEntity<Response> decryption(@RequestHeader(value = "Middleware-Header", required = false) String header, @RequestBody(required = false) Request request){
+    public ResponseEntity<Response> decryption(@Parameter(description = "Valores a desenciptar.") @RequestHeader(value = "Middleware-Header", required = false) String header, @RequestBody(required = false) Request request){
 
         return algorithmService.decryption(header, request);
 
